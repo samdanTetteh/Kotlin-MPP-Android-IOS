@@ -72,10 +72,10 @@ kotlin {
 }
 
 
-sqldelight{
-    Database{
-        packageName = "com.superawesome.multiplatform"
-    }
+sqldelight {
+  Database{
+      packageName = "com.superawesome.multiplatform.db"
+  }
 }
 
 
