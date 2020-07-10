@@ -2,4 +2,8 @@
     <string name="app_name">MultiPlatform</string>
     <string name="server_error">Failed to get data from server, Please check internet connection</string>
     <string name="error_txt">Error</string>
+    <string name="add_task">Add New task</string>
+    <string name="enter_task">Enter Task Title</string>
+    <string name="enter_task_title">Enter task title</string>
+    <string name="loading_txt">loading</string>
 </resources>

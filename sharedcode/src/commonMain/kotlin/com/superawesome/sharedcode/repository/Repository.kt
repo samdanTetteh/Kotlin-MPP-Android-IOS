@@ -51,6 +51,17 @@ class TodoRepository(
         }
     }
 
+
+    //insert a single task to local repository
+    fun cacheTodoData(todo: Todo) {
+        queries.insert(
+          todo.title,
+          todo.completed
+        )
+    }
+
+
+
     private fun getTodoDataFromRemote(): Flow<List<Todo>> {
         println("Getting todo data from remote")
         return flow {

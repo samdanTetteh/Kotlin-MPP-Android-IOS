@@ -55,6 +55,7 @@ dependencies {
      * This will be shared between iOS & Android
      */
     implementation project(':sharedcode')
+    implementation 'com.google.android.material:material:1.1.0'
 
     /**
      * Test dependency on Junit
