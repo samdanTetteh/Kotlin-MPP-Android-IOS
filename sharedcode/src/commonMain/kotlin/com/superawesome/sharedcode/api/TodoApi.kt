@@ -30,6 +30,6 @@ internal val ktorClient = HttpClient {
 
 internal const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
-class TodosApi(private val client: HttpClient = ktorClient) {
-    suspend fun getTodos(): List<Todo> = client.get(BASE_URL + "todos")
+class TodoApi(private val client: HttpClient = ktorClient) {
+    suspend fun getTodoData(): List<Todo> = client.get(BASE_URL + "todos")
 }

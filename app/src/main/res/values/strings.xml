@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MultiPlatform</string>
+    <string name="server_error">Failed to get data from server, Please check internet connection</string>
+    <string name="error_txt">Error</string>
 </resources>
