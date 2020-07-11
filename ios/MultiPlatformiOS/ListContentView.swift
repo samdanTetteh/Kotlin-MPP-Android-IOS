@@ -77,10 +77,9 @@ struct ListContentView: View {
         let submitAction = UIAlertAction(title: "Submit", style: .default) { [unowned ac] _ in
             let answer = ac.textFields![0]
             if(!answer.text!.isEmpty){
+                //Add new task item to list
                 self.todoViewModel.insertTodoItem(title: answer.text!)
             }
-
-            
         }
 
         ac.addAction(submitAction)

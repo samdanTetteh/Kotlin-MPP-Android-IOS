@@ -21,8 +21,6 @@ class TodoViewModel: ObservableObject {
         self.repository = repository
     }
     
-
-    
       /**
           Pull todo todo tasks from remote
        */
@@ -36,7 +34,7 @@ class TodoViewModel: ObservableObject {
     
     
     /**
-        insert task into local repository
+        insert task into local repository and emit changes
      */
     func insertTodoItem(title : String) {
         let todo = Todo_(id: 0, title: title, completed: false)
