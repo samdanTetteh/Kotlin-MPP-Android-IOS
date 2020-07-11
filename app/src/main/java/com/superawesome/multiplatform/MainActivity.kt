@@ -130,6 +130,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val alertDialog: AlertDialog = builder.create()
+        //Display once one instance of the Alert dialog
         if (!alertDialog.isShowing) alertDialog.show()
     }
 

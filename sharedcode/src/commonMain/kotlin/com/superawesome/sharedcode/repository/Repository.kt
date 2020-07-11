@@ -32,10 +32,11 @@ class TodoRepository(
 
     fun fetchTodoData(
         onSuccess: (List<Todo>) -> Unit,
-        onFailure: (Throwable) -> Unit
+        onFailure: (Throwable) -> Unit,
+        fromRemote: Boolean
     ) {
         GlobalScope.launch(applicationDispatcher) {
-            fetchTodoFlowData(force = true)
+            fetchTodoFlowData(force = fromRemote)
                 .catch { onFailure(it) }
                 .collect { onSuccess(it) }
         }
