@@ -34,6 +34,9 @@ class ExampleInstrumentedTest {
     @JvmField
     var activityRule = ActivityTestRule(MainActivity::class.java)
 
+    /**
+     * Test app package Name
+     * **/
     @Test
     fun useAppContext() {
         // Context of the app under test.
@@ -41,6 +44,9 @@ class ExampleInstrumentedTest {
         assertEquals("com.superawesome.multiplatform", appContext.packageName)
     }
 
+    /**
+     * Test click on list item
+     * **/
     @Test
     fun clickListItem() {
         Espresso.onView(withId(R.id.todo_list))
@@ -52,13 +58,18 @@ class ExampleInstrumentedTest {
             )
     }
 
+    /**
+     * Check number of items in recycler list
+     * **/
     @Test
     fun recyclerViewDisplayedCheck(){
         //this test will fail until the exact item count of the list is known and can be asserted
         Espresso.onView(withId(R.id.todo_list)).check(CustomAssertions.hasItemCount(202))
     }
 
-    // Custome assertions class to check recycler list item count
+    /**
+     * Custom assertions class to check recycler list item count
+     * **/
     class CustomAssertions {
         companion object {
             fun hasItemCount(count: Int): ViewAssertion {
