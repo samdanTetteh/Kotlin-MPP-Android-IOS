@@ -61,6 +61,16 @@ a language that is already popular with developers. Koltin syntax is very simila
 
 Kotlin Multiplatform is really about pragmatic programming to help meet the growing demand to develop mobile applications on multiple
 platforms – a clean, clear way to avoid having to write the code twice.
+
+#### How it works
+
+On iOS, the Kotlin Native compiler “merges” the common code and other source sets in that target’s hierarchy. 
+There can be multiple layers of specific sourcesets, but often with apps it’s just one for common and one for iOS.
+That compiles down and, assuming you’re building an app, you create a framework that Xcode can consume.
+Similarly, the Android side does some similar things. Although the pipeline can be a bit more direct. Kotlin has had more time to get friendly with Android.
+
+Simply put, Kotlin Multiplatform is more readable, reusable, interoperable, and safer, offering the developer the first-rate experience in developing
+native applications
     
 
 
