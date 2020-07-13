@@ -13,6 +13,10 @@ import kotlinx.coroutines.launch
 
 internal expect fun cache(): Database
 
+
+/**
+ * Repository class with helper methods to save and retrieve data
+ * */
 class TodoRepository(
     private val api: TodoApi,
     private val queries: SuperawesomeQueries = cache().superawesomeQueries
@@ -52,16 +56,13 @@ class TodoRepository(
         }
     }
 
-
     //insert a single task to local repository
     fun cacheTodoData(todo: Todo) {
         queries.insert(
-          todo.title,
-          todo.completed
+            todo.title,
+            todo.completed
         )
     }
-
-
 
     private fun getTodoDataFromRemote(): Flow<List<Todo>> {
         println("Getting todo data from remote")
@@ -75,8 +76,8 @@ class TodoRepository(
 
     private fun getTodoDataFromCache(): Flow<List<Todo>> {
         println("Getting todo data from cache")
-        fun loadMembers() = queries.selectAll().executeAsList().
-        map { Todo(id = it.id, title = it.title, completed = it.completed!!) }
+        fun loadMembers() = queries.selectAll().executeAsList()
+            .map { Todo(id = it.id, title = it.title, completed = it.completed!!) }
         return flow { emit(loadMembers()) }
             .catch { error(RemoteDataException()) }
             .flowOn(applicationDispatcher)

@@ -3,14 +3,18 @@ package com.superawesome.multiplatform
 
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.View
 import android.widget.EditText
+import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.google.android.material.snackbar.Snackbar
 import com.superawesome.multiplatform.Application.TodosApplication
 import com.superawesome.multiplatform.ViewModel.TodoViewModel
 import com.superawesome.multiplatform.ui.TodoAdapter
@@ -27,6 +31,9 @@ class MainActivity : AppCompatActivity() {
         findViewById<RecyclerView>(R.id.todo_list)
     }
 
+    private val holderView by lazy {
+        findViewById<CoordinatorLayout>(R.id.holder_view)
+    }
 
     private val repository by lazy {
         (application as TodosApplication).todosRepository
@@ -55,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
         //Notify user when state is refreshing
         viewModel.isRefreshing.observe(this, Observer {
-            Toast.makeText(this, getString(R.string.loading_txt), Toast.LENGTH_SHORT).show()
+              Snackbar.make(holderView, getString(R.string.loading_txt), Snackbar.LENGTH_SHORT).show()
         })
 
         // listen on error events from [viewModel] and show error if any
@@ -67,9 +74,6 @@ class MainActivity : AppCompatActivity() {
         fab.setOnClickListener {
             showAddTaskDialog()
         }
-
-
-
     }
 
     // Set new [data] to Adapter and notify it any changes in data

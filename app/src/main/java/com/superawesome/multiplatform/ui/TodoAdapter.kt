@@ -3,6 +3,7 @@ package com.superawesome.multiplatform.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.CheckBox
 import android.widget.CheckedTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.superawesome.multiplatform.R
@@ -15,7 +16,7 @@ import com.superawesome.sharedcode.model.Todo
 class TodoAdapter(var data : List<Todo>) : RecyclerView.Adapter<TodoAdapter.ViewHolder>(){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view  = LayoutInflater.from(parent.context).inflate(android.R.layout.simple_list_item_checked, parent, false)
+        val view  = LayoutInflater.from(parent.context).inflate(R.layout.list_item, parent, false)
         return  ViewHolder(view);
     }
 
@@ -26,8 +27,9 @@ class TodoAdapter(var data : List<Todo>) : RecyclerView.Adapter<TodoAdapter.View
         holder.bind(dataItem)
     }
 
+    // View holder to display list item
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-        val checkedView = itemView.findViewById<CheckedTextView>(android.R.id.text1)
+        val checkedView = itemView.findViewById<CheckBox>(R.id.todo_checkBox)
         fun bind(dataItem : Todo){
             checkedView.text = dataItem.title
             checkedView.isChecked = dataItem.completed

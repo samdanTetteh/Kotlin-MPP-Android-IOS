@@ -31,7 +31,6 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
      //load data based on boolean parameter [fromCache]
      fun loadMembers(fromRemote: Boolean = false) {
-
          // Fetch Data with flow builder
         viewModelScope.launch {
             repository.fetchTodoFlowData(fromRemote)
