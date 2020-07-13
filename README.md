@@ -26,6 +26,9 @@ To build the **Koltin Multiplatform** library you might want to run `./gradlew s
 
 
 ## Notes
+This app displays an initial data of 200 todos in a recyclerview from [Jsonplaceholder](https://jsonplaceholder.typicode.com/todos) and persisted 
+on device, making sure application follows the [Single source of truth](https://developer.android.com/jetpack/guide#truth) analogy. Once this is done
+all other requests for data is done locally. 
 
 ## MVVM (Model-View-View-Model)
 MVVM is my preferred design pattern as it make sure you write quality maintainable code and also helps to follow
@@ -42,7 +45,7 @@ the [SOLID](https://en.wikipedia.org/wiki/SOLID) and clean architecture.
 
 ### Disadvantages
 
-*   Some people think that for simple UIs, MVVM can be overkill.
+*   Some people think that for simple UIs, MVVM can be an overkill.
 
 
 ## Assumptions
