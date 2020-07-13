@@ -26,9 +26,15 @@ class TodoAdapter(var data : List<Todo>) : RecyclerView.Adapter<TodoAdapter.View
         holder.bind(dataItem)
     }
 
-    // View holder to display list item
+    /**
+     * Item view for recycler view
+     * **/
     inner class ViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
         val checkedView = itemView.findViewById<CheckBox>(R.id.todo_checkBox)
+
+        /**
+         * Method to set data presented by recycler adapter
+         * **/
         fun bind(dataItem : Todo){
             checkedView.text = dataItem.title
             checkedView.isChecked = dataItem.completed

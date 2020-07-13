@@ -19,7 +19,9 @@ import com.superawesome.multiplatform.viewModel.TodoViewModel
 import com.superawesome.sharedcode.api.RemoteDataException
 import com.superawesome.sharedcode.model.Todo
 
-
+/**
+ * App main activity
+ * **/
 class MainActivity : AppCompatActivity() {
 
     lateinit var fab: FloatingActionButton

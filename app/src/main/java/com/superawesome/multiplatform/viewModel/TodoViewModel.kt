@@ -30,7 +30,9 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
         loadMembers()
     }
 
-    //load data based on boolean parameter [fromCache]
+    /**
+     *  load data based on boolean parameter [fromCache]
+     * **/
     fun loadMembers(fromRemote: Boolean = false) {
         // Fetch Data with flow builder
         viewModelScope.launch {
@@ -47,7 +49,9 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
         }
     }
 
-    //creates new task and persists it in local repository
+    /**
+     *  creates new task and persists it in local repository
+     * **/
     fun insertTask(title: String) {
         val todo = Todo(title = title, completed = false)
         repository.cacheTodoData(todo)
