@@ -12,7 +12,9 @@ import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
 
-
+/**
+ * View model class for repository actions and observable methods.
+ * **/
 class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
     private val _todos = MutableLiveData<List<Todo>>()
