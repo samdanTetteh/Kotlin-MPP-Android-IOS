@@ -21,6 +21,8 @@ To build the **Koltin Multiplatform** library you might want to run `./gradlew s
 *   [SwiftUI on iOS](https://developer.apple.com/xcode/swiftui/)
 *   Network calls with [Ktor](https://ktor.io/clients/index.html)
 *   Data persistence on both Android & IOS with [SQLDelight](https://cashapp.github.io/sqldelight/)
+*   [Espresso](https://developer.android.com/training/testing/espresso) UI tests on android
+*   UI tests on IOS
 
 
 ## Notes
