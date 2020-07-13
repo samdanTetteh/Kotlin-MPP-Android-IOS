@@ -59,8 +59,8 @@ Due to the wide growth of the Kotlin language, Kotlin multiplatform applications
 It gives you the ability to write software for a wide range of platforms sharing one code base(the business logic) not just mobile with 
 a language that is already popular with developers. Koltin syntax is very similar to swift, making it easier to pick up by IOS developers.
 
-Kotlin Multiplatform is really about pragmatic programming to help meet the growing demand to develop mobile applications on multiple
-platforms – a clean, clear way to avoid having to write the code twice.
+Although initially the app architecture can take some getting use to, Kotlin multiplatform is really about pragmatic programming 
+to help meet the growing demand to develop mobile applications on multiple platforms – a clean, clear way to avoid having to write the code twice.
 
 #### How it works
 
