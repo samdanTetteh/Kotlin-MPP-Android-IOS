@@ -11,6 +11,7 @@ import io.ktor.client.features.json.JsonFeature
 import io.ktor.http.ContentType
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.headersOf
+import kotlin.js.JsName
 import kotlin.test.Test
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
@@ -18,7 +19,7 @@ import kotlin.test.assertFailsWith
 
 class ApiTest {
 
-
+    @JsName("ClientErrorTest")
     @Test
     fun `when http client throws error, throws exception`() = runTest {
         // GIVEN
@@ -49,7 +50,8 @@ class ApiTest {
     """.trimIndent()
 
         val mockEngine = MockEngine {
-            respond(testResponseString,
+            respond(
+                testResponseString,
                 HttpStatusCode.OK,
                 headersOf("Content-Type", ContentType.Application.Json.toString())
             )
@@ -79,7 +81,6 @@ class ApiTest {
     }
 
 
-
     @Test
     fun `when json has unknown fields, returns expected members`() = runTest {
         // GIVEN
@@ -93,9 +94,11 @@ class ApiTest {
     """.trimIndent()
 
         val mockEngine = MockEngine {
-            respond(testResponseString,
+            respond(
+                testResponseString,
                 HttpStatusCode.OK,
-                headersOf("Content-Type", ContentType.Application.Json.toString()))
+                headersOf("Content-Type", ContentType.Application.Json.toString())
+            )
         }
 
         val httpClient = HttpClient(mockEngine) {
@@ -110,7 +113,7 @@ class ApiTest {
             Todo(
                 id = 1L,
                 title = "Task 2",
-                completed = false
+                completed = true
             )
         )
 

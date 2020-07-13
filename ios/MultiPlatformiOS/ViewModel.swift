@@ -39,7 +39,6 @@ class TodoViewModel: ObservableObject {
     func insertTodoItem(title : String) {
         let todo = Todo_(id: 0, title: title, completed: false)
         repository.cacheTodoData(todo: todo)
-        
         fetch(fromRemote: false)
     }
     

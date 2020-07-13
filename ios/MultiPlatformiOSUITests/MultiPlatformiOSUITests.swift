@@ -22,5 +22,28 @@ class MultiPlatformiOSUITests: XCTestCase {
         // Use recording to get started writing UI tests.
         // Use XCTAssert and related functions to verify your tests produce the correct results.
     }
-
+    
+    func testAlertExistance() {
+        // Use recording to get started writing UI tests.
+        // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let app = XCUIApplication()
+             
+        app.buttons["Add Task"].tap()
+        XCTAssert(app.alerts["Add New Task"].exists)
+        app.alerts["Add New Task"].buttons["Submit"].tap()
+    }
+    
+    
+    func testAddingNewTack() {
+           // Use recording to get started writing UI tests.
+           // Use XCTAssert and related functions to verify your tests produce the correct results.
+        let app = XCUIApplication()
+        
+        app.buttons["Add Task"].tap()
+        app.textFields.element.tap()
+        app.textFields.element.typeText("New Task")
+        app.alerts["Add New Task"].buttons["Submit"].tap()
+        XCTAssert(app.staticTexts["New Task"].exists)
+        
+    }
 }
