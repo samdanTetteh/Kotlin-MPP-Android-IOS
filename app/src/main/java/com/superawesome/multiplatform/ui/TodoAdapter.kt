@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.CheckBox
-import android.widget.CheckedTextView
 import androidx.recyclerview.widget.RecyclerView
 import com.superawesome.multiplatform.R
 import com.superawesome.sharedcode.model.Todo

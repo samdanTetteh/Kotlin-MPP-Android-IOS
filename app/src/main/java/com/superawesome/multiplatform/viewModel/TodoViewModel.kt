@@ -1,4 +1,4 @@
-package com.superawesome.multiplatform.ViewModel
+package com.superawesome.multiplatform.viewModel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -7,10 +7,10 @@ import androidx.lifecycle.viewModelScope
 import com.superawesome.sharedcode.model.Todo
 import com.superawesome.sharedcode.repository.TodoRepository
 import kotlinx.coroutines.flow.catch
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.onCompletion
 import kotlinx.coroutines.flow.onStart
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.flow.collect
 
 
 class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
@@ -28,10 +28,9 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
         loadMembers()
     }
 
-
-     //load data based on boolean parameter [fromCache]
-     fun loadMembers(fromRemote: Boolean = false) {
-         // Fetch Data with flow builder
+    //load data based on boolean parameter [fromCache]
+    fun loadMembers(fromRemote: Boolean = false) {
+        // Fetch Data with flow builder
         viewModelScope.launch {
             repository.fetchTodoFlowData(fromRemote)
                 .onStart {
@@ -40,17 +39,18 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
                     _isRefreshing.value = false
                 }.catch {
                     _error.value = it
-                }.collect{
+                }.collect {
                     _todos.value = it
                 }
         }
     }
 
-
     //creates new task and persists it in local repository
-    fun insertTask(title : String){
+    fun insertTask(title: String) {
         val todo = Todo(title = title, completed = false)
         repository.cacheTodoData(todo)
+
+        // Makes sure observing views get notified
         loadMembers(false)
     }
 }

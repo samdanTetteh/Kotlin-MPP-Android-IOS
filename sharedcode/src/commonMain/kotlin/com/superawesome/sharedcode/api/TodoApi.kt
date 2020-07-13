@@ -22,6 +22,8 @@ internal val ktorClient = HttpClient {
     install(JsonFeature) {
         serializer = kotlinxSerializer
     }
+
+    // Logger setup
     install(Logging) {
         logger = Logger.DEFAULT
         level = LogLevel.ALL
@@ -30,6 +32,9 @@ internal val ktorClient = HttpClient {
 
 internal const val BASE_URL = "https://jsonplaceholder.typicode.com/"
 
+/**
+ * Api class for remote data retrieval
+ * **/
 class TodoApi(private val client: HttpClient = ktorClient) {
     suspend fun getTodoData(): List<Todo> = client.get(BASE_URL + "todos")
 }

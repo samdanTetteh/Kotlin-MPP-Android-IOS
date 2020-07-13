@@ -3,9 +3,7 @@ package com.superawesome.multiplatform
 
 import android.os.Bundle
 import android.view.LayoutInflater
-import android.view.View
 import android.widget.EditText
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
@@ -16,15 +14,15 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.superawesome.multiplatform.Application.TodosApplication
-import com.superawesome.multiplatform.ViewModel.TodoViewModel
 import com.superawesome.multiplatform.ui.TodoAdapter
+import com.superawesome.multiplatform.viewModel.TodoViewModel
 import com.superawesome.sharedcode.api.RemoteDataException
 import com.superawesome.sharedcode.model.Todo
 
 
 class MainActivity : AppCompatActivity() {
 
-    lateinit var fab : FloatingActionButton
+    lateinit var fab: FloatingActionButton
     lateinit var linearLayoutManager: LinearLayoutManager
 
     private val recyclerList by lazy {
@@ -41,16 +39,23 @@ class MainActivity : AppCompatActivity() {
 
     private val viewModel by lazy { TodoViewModel(repository) }
 
-
-    lateinit var adapter : TodoAdapter
+    lateinit var adapter: TodoAdapter
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
         fab = findViewById(R.id.floating_action_button)
+
         setupRecyclerView()
 
+        obverseViewModel()
+
+        setPageEvents()
+    }
+
+    // Make sure view is always updated on data changes
+    private fun obverseViewModel() {
         //Listen on data change events and show data from server if no data is found in cache once its is emitted.
         viewModel.todos.observe(this, Observer {
             if (it.isEmpty()) {
@@ -62,15 +67,17 @@ class MainActivity : AppCompatActivity() {
 
         //Notify user when state is refreshing
         viewModel.isRefreshing.observe(this, Observer {
-              Snackbar.make(holderView, getString(R.string.loading_txt), Snackbar.LENGTH_SHORT).show()
+            Snackbar.make(holderView, getString(R.string.loading_txt), Snackbar.LENGTH_SHORT).show()
         })
 
         // listen on error events from [viewModel] and show error if any
         viewModel.error.observe(this, Observer {
             showError(it)
         })
+    }
 
 
+    private fun setPageEvents() {
         fab.setOnClickListener {
             showAddTaskDialog()
         }
@@ -100,25 +107,32 @@ class MainActivity : AppCompatActivity() {
     }
 
     //Scroll List to bottom to show new item added after 1sec delay
-    private fun scrollListToBottom(){
-        recyclerList.postDelayed(Runnable { recyclerList.smoothScrollToPosition(adapter.itemCount - 1) }, 1000)
+    private fun scrollListToBottom() {
+        recyclerList.postDelayed(
+            Runnable { recyclerList.smoothScrollToPosition(adapter.itemCount - 1) },
+            1000
+        )
     }
 
 
     //Display add task dialog
-    private fun showAddTaskDialog(){
+    private fun showAddTaskDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
         val dialogView = LayoutInflater.from(this).inflate(R.layout.add_task_txt, null, false)
         val editTxt = dialogView.findViewById<EditText>(R.id.new_task_txt)
 
-        with(builder){
+        with(builder) {
             setCancelable(false)
             setFinishOnTouchOutside(false)
             setView(dialogView)
             setPositiveButton(getString(R.string.add_task)) { _, _ ->
-                if (editTxt.text.isEmpty()){
-                    Toast.makeText(this@MainActivity, getString(R.string.enter_task_title), Toast.LENGTH_LONG).show()
-                }else{
+                if (editTxt.text.isEmpty()) {
+                    Toast.makeText(
+                        this@MainActivity,
+                        getString(R.string.enter_task_title),
+                        Toast.LENGTH_LONG
+                    ).show()
+                } else {
                     viewModel.insertTask(editTxt.text.trim().toString())
                     scrollListToBottom()
                 }
@@ -130,13 +144,8 @@ class MainActivity : AppCompatActivity() {
 
         }
 
-
-
-
         val alertDialog: AlertDialog = builder.create()
         //Display once one instance of the Alert dialog
         if (!alertDialog.isShowing) alertDialog.show()
     }
-
-
 }

@@ -8,10 +8,8 @@ class TodosApplication : Application() {
 
     val todosRepository by lazy { TodoRepository() }
 
-
     override fun onCreate() {
         super.onCreate()
-
         appContext = this
     }
 }
