@@ -16,6 +16,7 @@ import com.google.android.material.snackbar.Snackbar
 import com.superawesome.multiplatform.Application.TodosApplication
 import com.superawesome.multiplatform.ui.TodoAdapter
 import com.superawesome.multiplatform.viewModel.TodoViewModel
+import com.superawesome.sharedcode.api.AddDataException
 import com.superawesome.sharedcode.api.RemoteDataException
 import com.superawesome.sharedcode.model.Todo
 
@@ -95,6 +96,7 @@ class MainActivity : AppCompatActivity() {
     private fun showError(error: Throwable) {
         val errorMessage = when (error) {
             is RemoteDataException -> getString(R.string.server_error)
+            is AddDataException -> getString(R.string.enter_task_title)
             else -> getString(R.string.error_txt)
         }
         Toast.makeText(this, errorMessage, Toast.LENGTH_LONG).show()
@@ -128,16 +130,7 @@ class MainActivity : AppCompatActivity() {
             setFinishOnTouchOutside(false)
             setView(dialogView)
             setPositiveButton(getString(R.string.add_task)) { _, _ ->
-                if (editTxt.text.isEmpty()) {
-                    Toast.makeText(
-                        this@MainActivity,
-                        getString(R.string.enter_task_title),
-                        Toast.LENGTH_LONG
-                    ).show()
-                } else {
-                    viewModel.insertTask(editTxt.text.trim().toString())
-                    scrollListToBottom()
-                }
+                viewModel.insertTask(editTxt.text.trim().toString())
             }
 
             setNegativeButton(getString(android.R.string.cancel)) { _, _ ->

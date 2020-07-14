@@ -2,6 +2,7 @@ package com.superawesome.sharedcode.repository
 
 import com.superawesome.multiplatform.db.Database
 import com.superawesome.multiplatform.db.SuperawesomeQueries
+import com.superawesome.sharedcode.api.AddDataException
 import com.superawesome.sharedcode.api.RemoteDataException
 import com.superawesome.sharedcode.api.TodoApi
 import com.superawesome.sharedcode.applicationDispatcher
@@ -34,6 +35,7 @@ class TodoRepository(
         return if (force) getTodoDataFromRemote() else getTodoDataFromCache()
     }
 
+
     fun fetchTodoData(
         onSuccess: (List<Todo>) -> Unit,
         onFailure: (Throwable) -> Unit,
@@ -56,7 +58,9 @@ class TodoRepository(
         }
     }
 
-    //insert a single task to local repository
+    /**
+     * insert a single task to local repository
+     * **/
     fun cacheTodoData(todo: Todo) {
         queries.insert(
             todo.title,

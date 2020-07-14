@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.superawesome.sharedcode.api.AddDataException
 import com.superawesome.sharedcode.model.Todo
 import com.superawesome.sharedcode.repository.TodoRepository
 import kotlinx.coroutines.flow.catch
@@ -17,34 +18,34 @@ import kotlinx.coroutines.launch
  * **/
 class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
 
-    private val _todos = MutableLiveData<List<Todo>>()
-    val todos: LiveData<List<Todo>> = _todos
+    private val todoListMutable = MutableLiveData<List<Todo>>()
+    val todos: LiveData<List<Todo>> = todoListMutable
 
-    private val _error = MutableLiveData<Throwable>()
-    val error: LiveData<Throwable> = _error
+    private val errorMutable = MutableLiveData<Throwable>()
+    val error: LiveData<Throwable> = errorMutable
 
-    private val _isRefreshing = MutableLiveData<Boolean>()
-    val isRefreshing: LiveData<Boolean> = _isRefreshing
+    private val isRefreshingMutable = MutableLiveData<Boolean>()
+    val isRefreshing: LiveData<Boolean> = isRefreshingMutable
 
     init {
         loadMembers()
     }
 
     /**
-     *  load data based on boolean parameter [fromCache]
+     *  load data based on boolean parameter [fromRemote]
      * **/
     fun loadMembers(fromRemote: Boolean = false) {
         // Fetch Data with flow builder
         viewModelScope.launch {
             repository.fetchTodoFlowData(fromRemote)
                 .onStart {
-                    _isRefreshing.value = true
+                    isRefreshingMutable.value = true
                 }.onCompletion {
-                    _isRefreshing.value = false
+                    isRefreshingMutable.value = false
                 }.catch {
-                    _error.value = it
+                    errorMutable.value = it
                 }.collect {
-                    _todos.value = it
+                    todoListMutable.value = it
                 }
         }
     }
@@ -53,10 +54,14 @@ class TodoViewModel(private val repository: TodoRepository) : ViewModel() {
      *  creates new task and persists it in local repository
      * **/
     fun insertTask(title: String) {
-        val todo = Todo(title = title, completed = false)
-        repository.cacheTodoData(todo)
+        if(title.isNotEmpty()){
+            val todo = Todo(title = title, completed = false)
+            repository.cacheTodoData(todo)
 
-        // Makes sure observing views get notified
-        loadMembers(false)
+            // Makes sure observing views get notified
+            loadMembers(false)
+        }else{
+            errorMutable.value = AddDataException()
+        }
     }
 }

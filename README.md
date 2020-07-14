@@ -28,7 +28,13 @@ To build the **Koltin Multiplatform** library you might want to run `./gradlew s
 ## Notes
 This app displays an initial data of 200 todos in a recyclerview from [Jsonplaceholder](https://jsonplaceholder.typicode.com/todos) and persisted 
 on device, making sure application follows the [Single source of truth](https://developer.android.com/jetpack/guide#truth) analogy. Once this is done
-all other requests for data is done locally. 
+all other requests for data is done locally.
+
+Each platform has implementations their own view model class due to the different uses with data manipulation in different platforms. A new task is 
+add is persisted locally and added to the bottom of the list in the recycler view. The shared data layer is using the repository pattern to decide which is 
+the source of data. For networking i am using **Ktor** and for Json serialization **Kotlinx serialization**
+
+Both IOS and Android handle their own view representations once data is retrieved from the shared repository to conform to platform specification standards.
 
 ## MVVM (Model-View-View-Model)
 MVVM is my preferred design pattern as it make sure you write quality maintainable code and also helps to follow
