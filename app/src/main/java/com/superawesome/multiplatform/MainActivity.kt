@@ -110,15 +110,6 @@ class MainActivity : AppCompatActivity() {
         recyclerList.adapter = adapter
     }
 
-    //Scroll List to bottom to show new item added after 1sec delay
-    private fun scrollListToBottom() {
-        recyclerList.postDelayed(
-            Runnable { recyclerList.smoothScrollToPosition(adapter.itemCount - 1) },
-            1000
-        )
-    }
-
-
     //Display add task dialog
     private fun showAddTaskDialog() {
         val builder: AlertDialog.Builder = AlertDialog.Builder(this)
